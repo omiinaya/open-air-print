@@ -62,20 +62,14 @@ func New(name string) (*Printer, error) {
 	}
 
 	// Open the printer using Windows spooler
-	p, err := winprinter.Open(name)
-	if err != nil {
-		return nil, fmt.Errorf("failed to open printer %s: %w", name, err)
-	}
-	}
-
-	p, err := printer.Open(name)
+	w, err := winprinter.Open(name)
 	if err != nil {
 		return nil, fmt.Errorf("failed to open printer %s: %w", name, err)
 	}
 
 	pr := &Printer{
 		name:    name,
-		printer: p,
+		printer: w,
 		jobs:    make(map[int]*PrintJob),
 		jobChan: make(chan *PrintJob, 100),
 		stopChan: make(chan struct{}),

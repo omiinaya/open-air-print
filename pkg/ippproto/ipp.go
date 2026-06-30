@@ -100,7 +100,7 @@ type Attribute struct {
 
 // Encode writes the IPP message to the writer in network byte order
 func (m *Message) Encode(w io.Writer) error {
-	// Chagfffffffetype + operation-id + request-id
+	// Version + operation-id + request-id
 	header := make([]byte, 8)
 	header[0] = VersionMajor
 	header[1] = VersionMinor
